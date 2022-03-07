@@ -5,8 +5,8 @@
         <div class="h-full xl:w-6/12 flex items-center">
           <h1 class="text-white text-2xl">开箱即用的中后台管理系统</h1>
         </div>
-        <div class="h-full xl:w-6/12">
-          <LoginForm />
+        <div class="h-full xl:w-6/12 flex justify-center items-center">
+          <LoginForm class="w-72" />
         </div>
       </div>
     </div>

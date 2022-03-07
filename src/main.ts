@@ -7,10 +7,12 @@ import { registerGlobalComp } from './components/registerGlobalComp';
 
 import App from './App.vue';
 
+import 'element-plus/dist/index.css';
+
 //Vite 在 import.meta.env对象上暴露环境变量
-if (import.meta.env.DEV) {
-  import('ant-design-vue/dist/antd.css');
-}
+// if (import.meta.env.DEV) {
+//   import('element-plus/dist/index.css');
+// }
 
 async function bootstrap() {
   const app = createApp(App);
@@ -22,7 +24,6 @@ async function bootstrap() {
   setupRouterGuard(router);
   //注册全局组件
   registerGlobalComp(app);
-
   app.mount('#app');
 }
 
