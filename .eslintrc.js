@@ -31,7 +31,7 @@ module.exports = defineConfig({
   plugins: ['vue', '@typescript-eslint'],
   // 规则
   rules: {
-    // 'prettier/prettier': 'error',
+    'prettier/prettier': 'error',
     '@typescript-eslint/no-var-requires': 'off',
     'vue/multi-word-component-names': 'warn',
   },

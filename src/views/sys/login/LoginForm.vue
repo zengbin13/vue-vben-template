@@ -14,7 +14,12 @@
         ></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" class="w-full" size="large" @click="submitLoginForm(ruleFormRef)"
+        <el-button
+          type="primary"
+          class="w-full"
+          size="large"
+          :loading="loading"
+          @click="handleLogin"
           >登录</el-button
         >
       </el-form-item>
@@ -25,16 +30,16 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import type { ElForm } from 'element-plus';
-import { notification } from '@/hooks/web/useMessage';
+import { useMessage } from '@/hooks/web/useMessage';
+import { useUserStore } from '@/store/modules/user';
+import type { LoginParams } from '#/store';
+import { loginApi } from '@/api/user';
 
 type FormInstance = InstanceType<typeof ElForm>;
 const ruleFormRef = ref<FormInstance>();
-
-interface LoginData {
-  username: string;
-  password: string;
-}
-const loginData = reactive<LoginData>({
+const { createMessage } = useMessage();
+// 数据
+const loginData = reactive<LoginParams>({
   username: '',
   password: '',
 });
@@ -60,26 +65,34 @@ const rules = reactive({
     },
     {
       min: 6,
-      max: 8,
-      message: '账号长度为6-8位',
+      max: 20,
+      message: '账号长度为6-20位',
       trigger: 'blur',
     },
   ],
 });
+const loading = ref(false);
+const userStore = useUserStore();
 
-const submitLoginForm = (formEl: FormInstance | undefined) => {
-  if (!formEl) return;
-  formEl.validate(valid => {
-    if (valid) {
-      notification({
-        title: '登录成功',
-        type: 'success',
-      });
-    } else {
-      console.log('error submit!');
-      return false;
-    }
-  });
+// 登录前端校验
+const validForm = (formEl: FormInstance | undefined): boolean => {
+  if (!formEl) return false;
+  let validRes = false;
+  formEl.validate(valid => (validRes = !!valid));
+  return validRes;
+};
+const handleLogin = async () => {
+  loginApi(loginData);
+  return;
+  const validFormRes = validForm(ruleFormRef.value);
+  if (!validFormRes) return;
+  try {
+    loading.value = true;
+    const userInfo = await userStore.login(loginData);
+  } catch (error) {
+  } finally {
+    loading.value = false;
+  }
 };
 </script>
 
