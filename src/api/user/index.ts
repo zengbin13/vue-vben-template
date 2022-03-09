@@ -2,5 +2,13 @@ import http from '@/utils/http';
 import { LoginParams } from './model';
 
 export function loginApi(data: LoginParams) {
-  return http.post('/api/login', data);
+  return http.post(
+    {
+      url: '/api/login',
+      data,
+    },
+    {
+      errorMessageMode: 'modal',
+    }
+  );
 }

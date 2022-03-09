@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia';
-// import { UserInfo } from '../../types/store';
+import { TOKEN_KEY } from '@/enums/cacheEnum';
+import { loginApi } from '@/api/user';
+
 import type { LoginParams } from '#/store';
 
 export const useUserStore = defineStore('app-user', {
@@ -16,8 +18,15 @@ export const useUserStore = defineStore('app-user', {
     },
   },
   actions: {
-    login(params: LoginParams): void {
-      console.log('login', params);
+    setToken(token: string) {
+      this.token = token;
+    },
+
+    async login(params: LoginParams) {
+      const res = await loginApi(params);
+      console.log('login', res);
+      // const { token } = res.data;
+      // this.setToken(token);
     },
   },
 });

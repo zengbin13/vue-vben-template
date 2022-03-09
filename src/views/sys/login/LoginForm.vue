@@ -33,7 +33,6 @@ import type { ElForm } from 'element-plus';
 import { useMessage } from '@/hooks/web/useMessage';
 import { useUserStore } from '@/store/modules/user';
 import type { LoginParams } from '#/store';
-import { loginApi } from '@/api/user';
 
 type FormInstance = InstanceType<typeof ElForm>;
 const ruleFormRef = ref<FormInstance>();
@@ -82,8 +81,6 @@ const validForm = (formEl: FormInstance | undefined): boolean => {
   return validRes;
 };
 const handleLogin = async () => {
-  loginApi(loginData);
-  return;
   const validFormRes = validForm(ruleFormRef.value);
   if (!validFormRes) return;
   try {

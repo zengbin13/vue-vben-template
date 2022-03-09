@@ -15,7 +15,7 @@ export function getRequestToken({ headers }: requestParams): string | undefined 
 /**
  * @description: 生成固定格式的错误响应
  */
-export function resultError(message = 'Request failed', { code = -1, result = null } = {}) {
+export function resultError(message = 'Request failed', { code = 1, result = null } = {}) {
   return {
     code,
     result,
