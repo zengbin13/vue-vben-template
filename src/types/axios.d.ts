@@ -1,8 +1,10 @@
 export interface RequestOptions {
   // 消息提示类型
-  errorMessageMode: ErrorMessageMode;
+  errorMessageMode?: ErrorMessageMode;
   // 忽略重复请求
-  ignoreCancelToken: boolean;
+  ignoreCancelToken?: boolean;
+  //额外属性
+  [propName: string]: any;
 }
 
 export type ErrorMessageMode = 'message' | 'modal' | 'none';

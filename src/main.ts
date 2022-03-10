@@ -14,6 +14,21 @@ import 'element-plus/dist/index.css';
 //   import('element-plus/dist/index.css');
 // }
 
+import { createStorage } from '@/utils/cache/storageCache';
+
+function test() {
+  const storage = createStorage({});
+  storage.set('xxx', '11111', 10);
+  setTimeout(() => {
+    const a = storage.get('xxx');
+    console.log(a, 3);
+  }, 3000);
+  setTimeout(() => {
+    const a = storage.get('xxx');
+    console.log(a, 15);
+  }, 15000);
+}
+
 async function bootstrap() {
   const app = createApp(App);
   // Configure store
@@ -25,6 +40,7 @@ async function bootstrap() {
   //注册全局组件
   registerGlobalComp(app);
   app.mount('#app');
+  test();
 }
 
 bootstrap();

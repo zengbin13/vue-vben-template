@@ -1,14 +1,9 @@
-import http from '@/utils/http';
+import { post } from '@/utils/http';
 import { LoginParams } from './model';
 
 export function loginApi(data: LoginParams) {
-  return http.post(
-    {
-      url: '/api/login',
-      data,
-    },
-    {
-      errorMessageMode: 'modal',
-    }
-  );
+  return post('/api/login', {
+    ...data,
+    errorMessageMode: 'modal',
+  });
 }

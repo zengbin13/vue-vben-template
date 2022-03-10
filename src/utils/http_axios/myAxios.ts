@@ -65,13 +65,13 @@ export class MyAxios {
 
     return new Promise((resolve, reject) => {
       this.axiosInstance
-        .request<any, AxiosResponse<Result>>(config)
+        .request<Result, AxiosResponse<Result>>(config)
         .then((res: AxiosResponse<Result>) => {
           //请求接口后结果 - 转换数据
           if (transformRequestData) {
             try {
-              const result = transformRequestData(res, requestOptions);
-              resolve(result);
+              const result = transformRequestData(res, requestOptions) as Result;
+              resolve(result as any);
             } catch (error) {
               console.error(error);
               reject(error || new Error('transformRequestData error'));
